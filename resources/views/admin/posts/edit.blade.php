@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('pageTitle', "Edit $post->title")
+@section('pageTitle', 'Create post')
 
 @section('pageContent')
     <div class="container">
@@ -11,16 +11,14 @@
                     @method('PUT')
                     <div class="mb-3">
                         <label for="title" class="form-label">{{ __('Title') }}</label>
-                        <input type="text" class="form-control" id="title" name="title"
-                            value="{{ old('title', $post->title) }}">
+                        <input type="text" class="form-control" id="title" name="title" value="{{ old('title', $post->title) }}">
                     </div>
                     @error('title')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                     <div class="mb-3">
                         <label for="slug" class="form-label">{{ __('Slug') }}</label>
-                        <input type="text" class="form-control" id="slug" name="slug"
-                            value="{{ old('slug', $post->slug) }}">
+                        <input type="text" class="form-control" id="slug" name="slug" value="{{ old('slug', $post->slug) }}">
                     </div>
                     <input type="button" value="Generate slug" id="btn-slugger">
                     @error('slug')
@@ -34,6 +32,11 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                     <button>Update</button>
+                    <input id="btn-delete" type="button" value="Delete">
+                </form>
+                <form id="form-delete" action="{{ route('admin.posts.destroy', $post->slug) }}" method="post">
+                    @csrf
+                    @method('DELETE')
                 </form>
             </div>
         </div>

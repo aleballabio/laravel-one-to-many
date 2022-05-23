@@ -4,20 +4,20 @@
 
 @section('pageContent')
     <div class="container">
-        @if (session('deleted'))
-            <div class="alert alert-warning">{{ session('deleted') }}</div>
+        @if (session('status'))
+            <div class="alert alert-warning">{{ session('status') }}</div>
         @endif
         <div class="row">
             <div class="col">
                 <table class="table table-dark table-hover">
                     <thead>
                         <tr>
-                            <th class="text-center" scope="col">#</th>
-                            <th class="text-center" scope="col">Title</th>
-                            <th class="text-center" scope="col">Slug</th>
-                            <th class="text-center" scope="col">Created At</th>
-                            <th class="text-center" scope="col">Updated At</th>
-                            <th class="text-center" scope="col" colspan="3">Actions</th>
+                        <th class="text-center" scope="col">#</th>
+                        <th class="text-center" scope="col">Title</th>
+                        <th class="text-center" scope="col">Slug</th>
+                        <th class="text-center" scope="col">Created At</th>
+                        <th class="text-center" scope="col">Updated At</th>
+                        <th class="text-center" scope="col" colspan="3">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -29,15 +29,17 @@
                                 <td>{{ date('d/m/Y', strtotime($post->created_at)) }}</td>
                                 <td>{{ date('d/m/Y', strtotime($post->updated_at)) }}</td>
                                 <td>
-                                    <a class="btn btn-primary"
-                                        href="{{ route('admin.posts.show', $post->slug) }}">View</a>
+                                    <a class="btn btn-primary" href="{{ route('admin.posts.show', $post->slug) }}">View</a>
                                 </td>
                                 <td>
-                                    <a class="btn btn-primary"
-                                        href="{{ route('admin.posts.edit', $post->slug) }}">Edit</a>
+                                    @if (Auth::user()->id === $post->user_id)
+                                        <a class="btn btn-primary" href="{{ route('admin.posts.edit', $post->slug) }}">Edit</a>
+                                    @endif
                                 </td>
                                 <td class="text-center">
-                                    <button class="btn btn-danger btn-delete">Delete</button>
+                                    @if (Auth::user()->id === $post->user_id)
+                                        <button class="btn btn-danger btn-delete">Delete</button>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
@@ -53,7 +55,7 @@
                 <h1>Sei sicuro di voler eliminare?</h1>
                 <div class="d-flex justify-content-center">
                     <button id="btn-no" class="btn btn-primary me-3">NO</button>
-                    <form method="POST" class="delete-post" data-base="{{ route('admin.posts.destroy', '*****') }}">
+                    <form method="POST" data-base="{{ route('admin.posts.destroy', '*****') }}">
                         @csrf
                         @method('DELETE')
                         <button class="btn btn-danger">SI</button>

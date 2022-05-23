@@ -1,4 +1,4 @@
-@e@extends('layouts.admin')
+@extends('layouts.admin')
 
 @section('pageTitle', 'Create post')
 

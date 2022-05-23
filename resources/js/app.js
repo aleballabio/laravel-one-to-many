@@ -51,8 +51,9 @@ if (btnSlugger) {
 }
 
 const confirmationOverlay = document.querySelector("#confirmation-overlay");
-const confirmationForm = document.querySelector(".delete-post");
 if (confirmationOverlay) {
+    const confirmationForm = confirmationOverlay.querySelector("form");
+
     document.querySelectorAll(".btn-delete").forEach((button) => {
         button.addEventListener("click", function () {
             const id = this.closest("tr").dataset.id;
@@ -69,5 +70,13 @@ if (confirmationOverlay) {
     btnNo.addEventListener("click", function () {
         confirmationForm.action = "";
         confirmationOverlay.classList.add("d-none");
+    });
+}
+
+const formDelete = document.querySelector("#form-delete");
+if (formDelete) {
+    const btnDelete = document.querySelector("#btn-delete");
+    btnDelete.addEventListener("click", function () {
+        formDelete.submit();
     });
 }
