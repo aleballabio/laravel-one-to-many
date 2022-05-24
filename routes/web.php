@@ -25,9 +25,10 @@ Route::middleware('auth')
         Route::post('/slugger', 'HomeController@slugger')->name('slugger');
         Route::get('/posts/my-posts', 'PostController@myindex')->name('posts.myindex');
         Route::resource('/posts', 'PostController');
+        Route::resource('/categories', 'CategoriesController');
     });
 
 
-Route::get("{any?}", function () {
+Route::get("{any?}", function() {
     return view("guests.home");
 })->where("any", ".*");
