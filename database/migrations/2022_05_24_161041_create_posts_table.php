@@ -21,8 +21,8 @@ class CreatePostsTable extends Migration
             $table->string('slug', 100)->unique();
             $table->timestamps();
             $table->unsignedBigInteger('category_id')
-                ->nullable()
-                ->after('user_id');
+                ->nullable();
+
 
             $table->foreign('user_id')
                 ->references('id')
