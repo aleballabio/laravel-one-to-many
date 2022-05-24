@@ -11,7 +11,7 @@
 
                 {{ $post->user->userInfo->phone }}</b>@endif
                 <br>
-                <b>{{ $post->category['name'] }}</b>
+                <b>{{ $post->category->name }}</b>
                 <p>{{ $post->content }}</p>
             </div>
         </div>
